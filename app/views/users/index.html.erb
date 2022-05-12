@@ -1,5 +1,139 @@
 <p style="color: green"><%= notice %></p>
 
+<div id='map' style='width: 100%; height: 500px; border-radius: 20px; shadow-box: 3px 3px 10px black;'></div>
+<script>
+// TO MAKE THE MAP APPEAR YOU MUST
+// ADD YOUR ACCESS TOKEN FROM
+// https://account.mapbox.com
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2Vsenp6ZXIiLCJhIjoiY2wzMXVxNjk4MGZxcjNpb2pxd3lqczRyaiJ9.IvHxJFJQDY5yoISmeC5Low';
+const map = new mapboxgl.Map({
+container: 'map', // container ID
+style: 'mapbox://styles/mapbox/streets-v11', // style URL
+center: [27.52, 53.89], // starting position [lng, lat]
+zoom: 14 // starting zoom
+});
+
+map.addControl(
+new MapboxGeocoder({
+accessToken: mapboxgl.accessToken,
+mapboxgl: mapboxgl
+})
+);
+
+map.on('style.load', function() {
+map.on('click', function(e) {
+  // console.log(e)
+let coordinates = e.lngLat;
+console.log(coordinates.lng)
+
+//this is create popup
+// new mapboxgl.Popup()
+//   .setLngLat(coordinates)
+//   .setHTML('you clicked here: <br/>' + coordinates)
+//   .addTo(map);
+  });
+});
+
+
+// Initialize the geolocate control.
+var geolocate = new mapboxgl.GeolocateControl({
+  positionOptions: {
+    enableHighAccuracy: true
+  },
+  trackUserLocation: true
+});
+// Add the control to the map.
+map.addControl(geolocate);
+// Set an event listener that fires
+// when a geolocate event occurs.
+geolocate.on('geolocate', function() {
+  console.log('A geolocate event has occurred.');
+});
+
+
+// example marker
+const marker = new mapboxgl.Marker()
+.setLngLat([27.52, 53.89])
+.setPopup(new mapboxgl.Popup().setHTML("<h1>Hello World!</h1>"))
+.addTo(map);
+marker.togglePopup(); // toggle popup open or closed
+
+
+// const mapMapblox = document.querySelector('#map')
+// mapMapblox.addEventListener('click', (e)=>{
+// if(!e.target.closest('.mapboxgl-marker')){
+  
+//   console.log('NO!!')
+// } else {
+//   console.log('YES!!')
+// }
+// })
+
+
+// map.on('style.load', function() {
+
+// 		  map.on('click', function(e) {
+// 		    let l = map.getStyle().layers;
+
+        
+// 		    var features = map.queryRenderedFeatures(e.point, {
+// 		      layers: ['poi-label', 'transit-label', 'landuse', 'national-park']
+// 		    });
+
+//         let marker = new mapboxgl.Marker({
+//           draggable: true
+//         })
+//         .setLngLat(e.lngLat)
+//         .setPopup(new mapboxgl.Popup({
+//           offset: 25
+//         }) // add popups
+//                   .setHTML('<h3>You can take foto users here</h3><i class="fas fa-plus-circle"></i>&nbsp;<button type="button" class="btnDelete" onclick="clicked(marker)" >delete</button>'));
+//         marker.addTo(map);
+//         marker.togglePopup();
+
+        
+// 		  });
+
+// 		});
+
+// 		function clicked(elem) {
+// 		  console.log("deleted");
+// 		}
+
+
+// map.on('style.load', function() {
+
+// 		  map.on('click', function(e) {
+// 		    let l = map.getStyle().layers;
+
+        
+// 		    var features = map.queryRenderedFeatures(e.point, {
+// 		      layers: ['poi-label', 'transit-label', 'landuse', 'national-park']
+// 		    });
+
+//         let marker = new mapboxgl.Marker({
+//           draggable: true
+//         })
+//         .setLngLat(e.lngLat)
+//         .setPopup(new mapboxgl.Popup({
+//           offset: 25
+//         }) // add popups
+//                   .setHTML('<h3>You can take foto users here</h3><i class="fas fa-plus-circle"></i>&nbsp;<button type="button" class="btnDelete" onclick="clicked(marker)" >delete</button>'));
+//         marker.addTo(map);
+//         marker.togglePopup();
+
+        
+// 		  });
+
+// 		});
+
+// 		function clicked(elem) {
+// 		  console.log("deleted");
+// 		}
+
+
+</script>
+
 <h1>Users</h1>
 
 <div id="users">
