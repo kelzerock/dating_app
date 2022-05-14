@@ -146,13 +146,12 @@ var marker_test = new mapboxgl.Marker()
 .setPopup(new mapboxgl.Popup().setHTML(`
 <div class="fotoUser" style="display: flex; flex-direction: column; width: 100%; height: 100%">
 <h1 style="text-align: center;;">${nameUser}</h1>
-<img src="${srcUserFoto}" style="width: 80%; margin: 3px auto;">
+<img src="${srcUserFoto}" style="width: 50px; margin: 3px auto;">
 <p>Descriptions</p>
 </div>
 
 
 `))
-.remove()
 .addTo(map);
 marker_test.togglePopup(); 
 <% end %>
